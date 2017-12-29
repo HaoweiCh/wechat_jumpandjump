@@ -1,6 +1,7 @@
 import os
 import time
 import math
+import random
 
 from PIL import Image, ImageTk
 
@@ -18,7 +19,9 @@ def load_screenshot():
 
 
 def press_screen(t: int):
-    os.system(f"{adb} shell input touchscreen swipe 170 187 170 187 {t}")
+    p = ' '.join([str(random.choice(range(512, 1024))) for _ in range(4)])
+
+    os.system(f"{adb} shell input touchscreen swipe {p} {t}")
 
 
 from tkinter import Tk, PhotoImage, Label
