@@ -23,5 +23,3 @@ adb pull /sdcard/screen.png # 下载截屏文件到本地
 3. 打开微信跳一跳，并点击开始
 4. 在Constans.java中配置好adb路径与截图路径，运行BackgroundImage4Panel.java的main方法
 5. 在弹出的窗口中先点击小人底部适当位置，然后再点想要跳的箱子的位置即可完成
-
-
