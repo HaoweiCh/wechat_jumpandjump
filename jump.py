@@ -8,10 +8,6 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 
-PATH_IMG = '/Users/c/PycharmProjects/untitled/havaajump/screen.png'
-
-
-###
 
 class Base(object):
 
@@ -66,9 +62,16 @@ class Base(object):
 
 
 class Jump(Base):
-    def __init__(self, path_img, adb='adb'):
-        self.adb = adb
-        self.path_img = path_img
+    def __init__(self, **kwargs):
+        """
+        读取信息
+
+        :param path_img:
+        :param adb:
+        """
+
+        self.adb = kwargs.get('adb', 'adb')
+        self.path_img = kwargs.get('path_img', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screen.png'))
 
         super(Jump, self).__init__()
 
@@ -173,4 +176,4 @@ class Jump(Base):
 #     d.img.show()
 
 if __name__ == '__main__':
-    Jump(PATH_IMG)
+    Jump()
