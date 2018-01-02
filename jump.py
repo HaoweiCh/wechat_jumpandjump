@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 
+from config import CONFIG
 
 class Base(object):
 
@@ -44,8 +45,8 @@ class Base(object):
             distance = math.sqrt(
                 (event.x - self.point_start[0]) ** 2 +
                 (event.y - self.point_start[1]) ** 2)
-            print(f'距离 {distance}')
-            self.press_screen(int(distance * 2.19 * 2))
+            print(f'distance {distance}')
+            self.press_screen(int(distance * CONFIG.ratioRelative * 3))
             time.sleep(1.2)
 
             self.point_start = ()
@@ -149,15 +150,21 @@ class Jump(Base):
 
             start = box[0]
             end = box[3]
-            mid = int((end[0] - start[0]) / 2 + start[0]), int(start[1])
+            offset_x = 2
+            offset_y = -6
+            mid = int((end[0] - start[0]) / 2 + start[0]) + offset_x, int(start[1]) + offset_y
 
             # 给锁定区域上色
-            # y1 y2 x1 x2
-            # img[50:200, 0:200] = (0, 0, 255)
-            img[mid[1] - 6:mid[1], mid[0] - 3:mid[0] + 3] = (0, 255, 0)
+            x1, y1 = mid[0] - 3, mid[1] - 3
+            x2, y2 = mid[0] + 3, mid[1] + 3
+            img[y1:y2, x1:x2] = (0, 255, 0)
+
             self.img = Image.fromarray(img)
 
             self.point_start = mid
+
+    def __parse_stop_point(self):
+        raise NotImplementedError
 
     def press_screen(self, t: int):
         p = ' '.join([str(random.choice(range(512, 1024))) for _ in range(4)])

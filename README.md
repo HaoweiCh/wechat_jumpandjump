@@ -6,11 +6,13 @@
 
 ## 使用方法
 1. 在电脑上下载好adb
-2. 配置好 Python 的环境 (安装python3.6，安装依赖包 `pip install -r requirments.txt`)
+2. 配置好 Python 的环境 (安装python3.6，安装依赖包 `pip install -r requirements.txt`)
 2. 打开安卓手机的usb调试模式并授权连接的电脑
     * 如果是小米手机，在USB调试下方有 USB调试（安全设置）打开(允许模拟点击)
 3. 打开微信跳一跳，并点击开始
+4. `python jump.py`
 5. **点想要跳的箱子的位置即可**
+    * 跳的不准请在config.py中调试参数，两三次就调试出来了，和手机分辨率有关系  
 
 ## 截屏
 ![](https://raw.githubusercontent.com/Chaaang/wechat_jumpandjump/master/screen.png)
@@ -20,7 +22,7 @@
 * 结构更新，程序直接运行
 * 加入对起点自动识别，用户只需要点击最后一步
 
-## 原理
+## 原理&思路
 用usb调试安卓手机，用adb截图并用鼠标标记然后计算距离，再计算按压时间后模拟按压。
 
 ```
@@ -28,5 +30,8 @@ adb shell input swipe
 adb shell screencap
 adb pull 
 ```
+
+### 新思路，
+从棋子起点建立二维坐标系，终点所在点一定和x轴成30度关系。将所有与x轴成30度的点去除再做判断，过滤背景色，再找连续存在的颜色，中点便是终点。
 
 
